@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-export default function UserProfile() {
+export function UserProfile() {
   const [data, setData] = useState(false);
   const [loading, setLoading] = useState(false);
 
