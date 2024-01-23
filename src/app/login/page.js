@@ -76,8 +76,7 @@ export default function LoginPage() {
         <button
           className="hover:shadow-md hover:shadow-white items-center justify-center"
           disabled={loginInProgress}
-          onClick={() =>
-            signIn("credentials", { callbackUrl: "/" })}
+          onClick={() => signIn("credentials", { callbackUrl: "/" })}
           type="submit"
         >
           Einloggen
