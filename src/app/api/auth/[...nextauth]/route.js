@@ -1,9 +1,10 @@
 import bcrypt from "bcrypt";
-import mongoose from "mongoose";
+import * as mongoose from "mongoose";
 import { MongoDBAdapter } from "@auth/mongodb-adapter";
-import CredentialsProvider from "next-auth/providers/credentials";
 import GoogleProvider from "next-auth/providers/google";
 import NextAuth from "next-auth";
+import CredentialsProvider from "next-auth/providers/credentials";
+
 import clientPromise from "@/libs/mongoConnect";
 import { User } from "@/models/User";
 
