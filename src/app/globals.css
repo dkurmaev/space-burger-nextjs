@@ -1,0 +1,259 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+    @apply bg-bg text-gray-500 font-mono text-lg relative;
+}
+
+body::after {
+    content: "";
+    background: url(../img/snow.gif);
+    opacity: 0.1;
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: -1;
+    pointer-events: none;
+
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+    @apply text-sm leading-5;
+}
+
+
+section.hero {
+    @apply grid;
+    grid-template-columns: .9fr .8fr;
+    justify-content: end;
+}
+
+/* .planet {
+    right: 147px;
+    top: 275px;
+}  */
+
+.card {
+    @apply bg-gray-100 bg-opacity-10 shadow-md transition-transform transform translate-x-0;
+}
+
+.video {
+    @apply relative mt-16 transition-transform transform scale-100;
+}
+
+video {
+    @apply w-full h-auto filter blur-[5px];
+}
+
+
+.video-info {
+    position: absolute;
+    top: 30%;
+    padding-top: 120px;
+    z-index: 2;
+    text-align: center;
+
+}
+
+
+
+.video-button {
+    background: #DC8827;
+    border-radius: 8px;
+    font-weight: 500;
+    line-height: 16px;
+    color: white;
+    display: inline-block;
+    margin: 28px auto 0 auto;
+    cursor: pointer;
+    transition: background 0.25s;
+
+}
+
+input[type="email"],
+input[type="password"],
+input[type="tel"],
+input[type="text"] {
+    @apply block border p-2 border-gray-800;
+    @apply w-full mb-2 rounded-xl;
+    background: #332c28;
+
+}
+
+input[type="email"]:disabled,
+input[type="password"]:disabled,
+input[type="tel"]:disabled,
+input[type="text"]:disabled {
+    @apply bg-gray-100 cursor-not-allowed;
+    @apply block border p-2 border-gray-800;
+    @apply w-full mb-2 rounded-xl;
+    background: #332c28;
+
+}
+
+label {
+    @apply text-gray-500 text-sm leading-tight;
+    margin-left: 7px;
+   
+}
+
+label + input {
+    margin-top: -2px;
+    
+}
+
+button, .button {
+    @apply flex p-2 border-gray-800 ;
+    @apply w-full rounded-xl bg-submit px-6 py-2;
+
+}
+
+button[type="submit"],
+.submit {
+    @apply text-gray-400 border-primary hover:bg-primary mt-7;
+    box-shadow: 0 2px 30px 0 #764F22;
+}
+
+button[type="submit"]:disabled,
+.submit:disabled {
+    @apply cursor-not-allowed bg-gray-400 ;
+    
+}
+button[type="register"]:disabled,
+.submit:disabled {
+    @apply cursor-not-allowed bg-gray-400;
+
+}
+
+button[type="avatar"],
+.avatar {   
+    box-shadow: 0 2px 5px 0 #764F22;
+}
+.avatar__btn {
+    box-shadow: 0 2px 10px 0 #be8f58;
+}
+
+
+
+.animate-gravitation {
+    animation: gravitation 2.5s linear infinite alternate;
+}
+
+.glow {
+    text-shadow: 0 0 10px rgba(51, 174, 223, 0.8);
+    /* Эффект свечения */
+    filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.5));
+    /* Дополнительный эффект свечения */
+}
+
+.loader-profile {
+    transform: rotateZ(45deg);
+    perspective: 1000px;
+    border-radius: 50%;
+    width: 48px;
+    height: 48px;
+    color: #fff;
+}
+
+.loader-profile::before,
+.loader-profile::after {
+    content: '';
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: inherit;
+    height: inherit;
+    border-radius: 50%;
+    transform: rotateX(70deg);
+    animation: 1s spin linear infinite;
+}
+
+.loader-profile::after {
+    color: #DC8827;
+    transform: rotateY(70deg);
+    animation-delay: .4s;
+}
+
+div.tabs > * {
+    @apply rounded-full px-4 py-2 ;
+    @apply hover:bg-primary transition-colors duration-300;
+    box-shadow: 0 2px 10px 0 #be8f58;
+}
+
+div.tabs > .active {
+    @apply bg-primary text-gray-300;
+    box-shadow: 0 2px 10px 0 #be8f58;
+}
+
+@keyframes gravitation {
+    to {
+        transform: translateY(-20px);
+    }
+}
+
+@keyframes rotate {
+    0% {
+        transform: translate(-50%, -50%) rotateZ(0deg);
+    }
+
+    100% {
+        transform: translate(-50%, -50%) rotateZ(360deg);
+    }
+}
+
+@keyframes rotateccw {
+    0% {
+        transform: translate(-50%, -50%) rotate(0deg);
+    }
+
+    100% {
+        transform: translate(-50%, -50%) rotate(-360deg);
+    }
+}
+
+@keyframes spin {
+
+    0%,
+    100% {
+        box-shadow: .2em 0px 0 0px currentcolor;
+    }
+
+    12% {
+        box-shadow: .2em .2em 0 0 currentcolor;
+    }
+
+    25% {
+        box-shadow: 0 .2em 0 0px currentcolor;
+    }
+
+    37% {
+        box-shadow: -.2em .2em 0 0 currentcolor;
+    }
+
+    50% {
+        box-shadow: -.2em 0 0 0 currentcolor;
+    }
+
+    62% {
+        box-shadow: -.2em -.2em 0 0 currentcolor;
+    }
+
+    75% {
+        box-shadow: 0px -.2em 0 0 currentcolor;
+    }
+
+    87% {
+        box-shadow: .2em -.2em 0 0 currentcolor;
+    }
+}
+
