@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
-export function useProfile() {
+
+export default function UserProfile() {
   const [data, setData] = useState(false);
   const [loading, setLoading] = useState(false);
 
@@ -7,7 +8,7 @@ export function useProfile() {
     setLoading(true);
     fetch("/api/profile").then((response) => {
       response.json().then((data) => {
-        setData(data)
+        setData(data);
         setLoading(false);
       });
     });
