@@ -3,8 +3,8 @@
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 
-import UserTabs from "@/components/layout/UserTabs";
-import { useProfile } from "@/components/useProfile";
+import UserTabs from "../../components/layout/UserTabs";
+import { useProfile } from "../../components/UseProfile";
 
   export default function CategoriesPage() {
     const [categoryName, setCategoryName] = useState("");

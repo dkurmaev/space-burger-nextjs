@@ -4,10 +4,10 @@ import toast from "react-hot-toast";
 import Link from "next/link";
 import { redirect, useParams } from "next/navigation";
 
-import { useProfile } from "@/components/useProfile";
-import UserTabs from "@/components/layout/UserTabs";
-import Left from "@/components/icons/Left";
-import MenuItemForm from "@/components/layout/MenuItemForm";
+import { useProfile } from "../../components/useProfile";
+import UserTabs from "../../components/layout/UserTabs";
+import Left from "../../components/icons/Left";
+import MenuItemForm from "../../components/layout/MenuItemForm";
 
 
 export default function EditMenuItemPage() {
