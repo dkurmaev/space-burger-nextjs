@@ -1,13 +1,14 @@
 import clientPromise from "@/libs/mongoConnect";
+import { UserInfo } from "@/models/UserInfo";
 import bcrypt from "bcrypt";
 import * as mongoose from "mongoose";
 import { User } from "@/models/User";
-import NextAuth from "next-auth";
+import NextAuth, { getServerSession } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import GoogleProvider from "next-auth/providers/google";
 import { MongoDBAdapter } from "@auth/mongodb-adapter";
 
-const authOptions = {
+export const authOptions = {
   secret: process.env.SECRET,
   adapter: MongoDBAdapter(clientPromise),
   providers: [
@@ -35,10 +36,10 @@ const authOptions = {
         const passwordOk = user && bcrypt.compareSync(password, user.password);
 
         if (passwordOk) {
-          return Promise.resolve(user);
+          return user;
         }
 
-        return Promise.resolve(null);
+        return null;
       },
     }),
   ],
