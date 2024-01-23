@@ -4,12 +4,12 @@ import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 
 import UserTabs from "@/components/layout/UserTabs";
-import { useProfile } from "@/components/useProfile";
+import { UseProfile } from "@/components/useProfile";
 
 export default function CategoriesPage() {
   const [categoryName, setCategoryName] = useState("");
   const [categories, setCategories] = useState([]);
-  const { loading: profileLoading, data: profileData } = useProfile();
+  const { loading: profileLoading, data: profileData } = UseProfile();
   const [editedCategory, setEditedCategory] = useState(null);
 
   useEffect(() => {

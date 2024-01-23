@@ -4,7 +4,7 @@ import toast from "react-hot-toast";
 import Link from "next/link";
 import { redirect, useParams } from "next/navigation";
 
-import { useProfile } from "@/components/useProfile";
+import { UseProfile } from "@/components/useProfile";
 import UserTabs from "@/components/layout/UserTabs";
 import Left from "@/components/icons/Left";
 import MenuItemForm from "@/components/layout/MenuItemForm";
@@ -13,7 +13,7 @@ export default function EditMenuItemPage() {
   const { id } = useParams();
   const [menuItem, setMenuItem] = useState(null);
   const [redirectToItems, setRedirectToItems] = useState(false);
-  const { loading: profileLoading, data: profileData } = useProfile();
+  const { loading: profileLoading, data: profileData } = UseProfile();
 
   useEffect(() => {
     fetch("/api/menu-items/").then((response) => {

@@ -5,14 +5,14 @@ import toast from "react-hot-toast";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 
-import { useProfile } from "@/components/useProfile";
+import { UseProfile } from "@/components/useProfile";
 import UserTabs from "@/components/layout/UserTabs";
 import Left from "@/components/icons/Left";
 import MenuItemForm from "@/components/layout/MenuItemForm";
 
 export default function NewMenuItemPage() {
   const [redirectToItems, setRedirectToItems] = useState(false);
-  const { loading: profileLoading, data: profileData } = useProfile();
+  const { loading: profileLoading, data: profileData } = UseProfile();
 
   async function handleFormSubmit(event, data) {
     event.preventDefault();
