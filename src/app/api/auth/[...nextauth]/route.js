@@ -7,6 +7,8 @@ import NextAuth from "next-auth";
 import clientPromise from "@/libs/mongoConnect";
 import { User } from "@/models/User";
 
+
+
 export const authOptions = {
   secret: process.env.SECRET,
   adapter: MongoDBAdapter(clientPromise),
@@ -27,38 +29,30 @@ export const authOptions = {
         password: { label: "Password", type: "password" },
       },
       async authorize(credentials, req) {
-        const email = credentials?.email;
-        const password = credentials?.password;
+        console.log("Credentials:", credentials);
+        const email = credentials.email;
+        console.log("Email:", email);
+        const password = credentials.password;
+        console.log("Password:", password);
 
-        console.log("Received credentials:", email, password);
-
+        
         mongoose.connect(process.env.MONGO_URL);
+        console.log("Connected to MongoDB.");
         const user = await User.findOne({ email });
-
         console.log("Found user in database:", user);
 
         if (user) {
-          console.log("User provider:", user.provider);
-
-          if (user.provider !== "credentials") {
-            console.error(
-              "Error: To confirm your identity, sign in with the same account you used originally."
-            );
-            throw new Error(
-              "To confirm your identity, sign in with the same account you used originally."
-            );
-          }
+          console.log("User provider:", user.provider);          
 
           const passwordOk = bcrypt.compareSync(password, user.password);
+          console.log("Результат сравнения пароля:", passwordOk);
 
-          console.log("Password comparison result:", passwordOk);
-
-          if (passwordOk) {
+          if (passwordOk) {  
             return user;
-          }
+          } 
         }
 
-        console.error("Authentication failed.");
+        console.error("Аутентификация не удалась.");
         return null;
       },
     }),

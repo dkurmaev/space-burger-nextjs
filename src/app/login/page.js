@@ -9,40 +9,17 @@ export default function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loginInProgress, setLoginInProgress] = useState(false);
-  const [userLogged, setUserLogged] = useState(false);
-  const [error, setError] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
 
   async function handleFormSubmit(event) {
     event.preventDefault();
     setLoginInProgress(true);
     setError(false);
-    await signIn("credentials", { email, password, callbackUrl: "/" });
     setUserLogged(false);
 
-    try {
-      const response = await fetch("/api/login", {
-        method: "POST",
-        body: JSON.stringify({ email, password }),
-        headers: { "Content-Type": "application/json" },
-      });
+    await signIn("credentials", { email, password, callbackUrl: "/" });
 
-      if (response.ok) {
-        setUserLogged(true);
-      } else {
-        const contentType = response.headers.get("content-type");
-        if (contentType && contentType.includes("application/json")) {
-          const errorData = await response.json();
-          setError(errorData.message);
-        } else {
-          setError("Der Benutzer mit dieser E-Mail-Adresse existiert nicht");
-        }
-      }
-    } catch (error) {
-      setError("An error occurred while logging in");
-    } finally {
-      setLoginInProgress(false);
-    }
+    setLoginInProgress(false);
   }
 
   return (
@@ -50,12 +27,6 @@ export default function LoginPage() {
       <h1 className="text-center text-primary text-5xl font-bold mb-8">
         Einloggen
       </h1>
-      {error && <div className="alert alert-danger">{error}</div>}
-      {userLogged && (
-        <div className="alert alert-success">
-          Du hast dich erfolgreich eingeloggt
-        </div>
-      )}
       <form
         className="block max-w-sm mx-auto text-white"
         onSubmit={handleFormSubmit}
