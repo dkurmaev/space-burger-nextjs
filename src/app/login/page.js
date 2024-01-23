@@ -17,27 +17,11 @@ export default function LoginPage() {
     event.preventDefault();
     setLoginInProgress(true);
     setError(false);
-    await signIn("credentials", { email, password, callbackUrl: "/" });
-    setUserLogged(false);
 
     try {
-      const response = await fetch("/api/login", {
-        method: "POST",
-        body: JSON.stringify({ email, password }),
-        headers: { "Content-Type": "application/json" },
-      });
-
-      if (response.ok) {
-        setUserLogged(true);
-      } else {
-        const contentType = response.headers.get("content-type");
-        if (contentType && contentType.includes("application/json")) {
-          const errorData = await response.json();
-          setError(errorData.message);
-        } else {
-          setError("Der Benutzer mit dieser E-Mail-Adresse existiert nicht");
-        }
-      }
+      await signIn("credentials", { email, password, callbackUrl: "/" });
+     
+      setUserLogged(true);
     } catch (error) {
       setError("An error occurred while logging in");
     } finally {
