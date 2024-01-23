@@ -42,22 +42,19 @@ export default function ProfilePage() {
   async function handleProfileInfoUpdate(event) {
     event.preventDefault();
     const savingPromise = new Promise(async (resolve, reject) => {
-      const response = await fetch(
-        "https://space-burger-nextjs.vercel.app/api/profile",
-        {
-          method: "PUT",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            name: userName,
-            image,
-            street,
-            city,
-            plz,
-            country,
-            phone,
-          }),
-        }
-      );
+      const response = await fetch("/api/profile", {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: userName,
+          image,
+          street,
+          city,
+          plz,
+          country,
+          phone,
+        }),
+      });
       if (response.ok) {
         resolve("ok");
       } else {
@@ -69,8 +66,8 @@ export default function ProfilePage() {
       success: "Gespeichert!",
       error: "Speichern fehlgeschlagen",
     });
-  } 
-  
+  }
+
   if (status === "loading" || !profileFetched) {
     return (
       <>
@@ -136,7 +133,7 @@ export default function ProfilePage() {
                   type="text"
                   placeholder="Stadt"
                   className="avatar__btn"
-                  style={{ width: "auto" }} 
+                  style={{ width: "auto" }}
                   value={city}
                   onChange={(event) => setCity(event.target.value)}
                 />

@@ -14,7 +14,6 @@ export async function POST(req) {
         secretAccessKey: process.env.MY_AWS_SECRET_KEY,
       },
     });
-    
 
     const ext = file.name.split(".").slice(-1)[0];
     const newFileName = uniqid() + "." + ext;
@@ -23,7 +22,7 @@ export async function POST(req) {
     for await (const chunk of file.stream()) {
       chunks.push(chunk);
     }
-    
+
     const buffer = Buffer.concat(chunks);
 
     const bucket = "space-burger";

@@ -3,13 +3,13 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import Image from "next/image";
-import  {UserProfile} from "@/components/UserProfile";
+import { useProfile } from "@/components/useProfile";
 import UserTabs from "@/components/layout/UserTabs";
 import Right from "@/components/icons/Right";
 
 export default function MenuItems() {
   const [menuItems, setMenuItems] = useState([]);
-  const { loading: profileLoading, data: profileData } = UserProfile();
+  const { loading: profileLoading, data: profileData } = useProfile();
 
   useEffect(() => {
     fetch("/api/menu-items").then((response) => {

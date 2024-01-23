@@ -1,32 +1,31 @@
 "use client";
-import { useEffect, useState,  } from "react";
+import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import Link from "next/link";
 import { redirect, useParams } from "next/navigation";
 
-import  {UserProfile}  from "@/components/UserProfile";
+import { useProfile } from "@/components/useProfile";
 import UserTabs from "@/components/layout/UserTabs";
 import Left from "@/components/icons/Left";
 import MenuItemForm from "@/components/layout/MenuItemForm";
 
-
 export default function EditMenuItemPage() {
-  const {id} = useParams();  
+  const { id } = useParams();
   const [menuItem, setMenuItem] = useState(null);
   const [redirectToItems, setRedirectToItems] = useState(false);
-  const { loading: profileLoading, data: profileData } = UserProfile();
+  const { loading: profileLoading, data: profileData } = useProfile();
 
-  useEffect(() => {    
+  useEffect(() => {
     fetch("/api/menu-items/").then((response) => {
-      response.json().then(items => {
-        const item = items.find(item => item._id === id);
+      response.json().then((items) => {
+        const item = items.find((item) => item._id === id);
         setMenuItem(item);
       });
-    })
-  }, [id]);
+    });
+  }, []);
 
   async function handleFormSubmit(data) {
-    data = {...data, _id: id}
+    data = { ...data, _id: id };
     const savingPromise = new Promise(async (resolve, reject) => {
       const response = await fetch("/api/menu-items", {
         method: "PUT",

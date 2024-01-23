@@ -12,7 +12,11 @@ export async function POST(req, res) {
   const existingUser = await User.findOne({ email: body.email });
 
   console.log("Query result:", existingUser);
-  
+
+  /* if (!existingUser) {
+    mongoose.connection.close();
+    throw new Error("Der Benutzer mit dieser E-Mail-Adresse existiert nicht");
+  } */
 
   const isPasswordValid = bcrypt.compareSync(pass, existingUser.password);
 

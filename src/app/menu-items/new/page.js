@@ -5,19 +5,17 @@ import toast from "react-hot-toast";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 
-
-import { UserProfile } from "@/components/UserProfile";
+import { useProfile } from "@/components/useProfile";
 import UserTabs from "@/components/layout/UserTabs";
 import Left from "@/components/icons/Left";
 import MenuItemForm from "@/components/layout/MenuItemForm";
 
 export default function NewMenuItemPage() {
-  
-  const [redirectToItems, setRedirectToItems] = useState(false);  
-  const { loading: profileLoading, data: profileData } = UserProfile();
+  const [redirectToItems, setRedirectToItems] = useState(false);
+  const { loading: profileLoading, data: profileData } = useProfile();
 
   async function handleFormSubmit(event, data) {
-    event.preventDefault();    
+    event.preventDefault();
     const savingPromise = new Promise(async (resolve, reject) => {
       const response = await fetch("/api/menu-items", {
         method: "POST",
