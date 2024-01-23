@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 import bcrypt from "bcrypt";
-import { User } from "../../../models/User";
+import { User } from "@/models/User";
 
 export async function POST(req, res) {
   const body = await req.json();
