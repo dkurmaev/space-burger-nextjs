@@ -1,14 +1,13 @@
-import clientPromise from "@/libs/mongoConnect";
-import { UserInfo } from "@/models/UserInfo";
 import bcrypt from "bcrypt";
-import * as mongoose from "mongoose";
-import { User } from "@/models/User";
-import NextAuth, { getServerSession } from "next-auth";
-import CredentialsProvider from "next-auth/providers/credentials";
-import GoogleProvider from "next-auth/providers/google";
+import mongoose from "mongoose";
 import { MongoDBAdapter } from "@auth/mongodb-adapter";
+import GoogleProvider from "next-auth/providers/google";
+import CredentialsProvider from "next-auth/providers/credentials";
+import NextAuth from "next-auth";
+import clientPromise from "@/libs/mongoConnect";
+import { User } from "@/models/User";
 
-export const authOptions = {
+const authOptions = {
   secret: process.env.SECRET,
   adapter: MongoDBAdapter(clientPromise),
   providers: [
