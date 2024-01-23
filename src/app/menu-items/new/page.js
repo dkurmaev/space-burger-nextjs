@@ -6,7 +6,7 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 
 
-import { userProfile } from "@/components/UserProfile";
+import { UserProfile } from "@/components/UserProfile";
 import UserTabs from "@/components/layout/UserTabs";
 import Left from "@/components/icons/Left";
 import MenuItemForm from "@/components/layout/MenuItemForm";
@@ -14,7 +14,7 @@ import MenuItemForm from "@/components/layout/MenuItemForm";
 export default function NewMenuItemPage() {
   
   const [redirectToItems, setRedirectToItems] = useState(false);  
-  const { loading: profileLoading, data: profileData } = userProfile();
+  const { loading: profileLoading, data: profileData } = UserProfile();
 
   async function handleFormSubmit(event, data) {
     event.preventDefault();    
