@@ -58,19 +58,14 @@ export default function CategoriesPage() {
       const response = await fetch("/api/categories?_id=" + _id, {
         method: "DELETE",
       });
-      if (response.ok) {
-        resolve();
-      } else {
-        reject();
-      }
+      if (response.ok) resolve();
+      else reject();
     });
-
     await toast.promise(promise, {
       loading: "Löschen…",
       success: "Gelöscht",
       error: "Fehler",
     });
-
     fetchCategories();
   }
 
@@ -100,7 +95,7 @@ export default function CategoriesPage() {
   return (
     <section className="mt-8 max-w-xl mx-auto">
       <UserTabs isAdmin={true} />
-      <form className="mt-8" onSubmit={handleCategorySubmit}>
+      <form className="mt-16" onSubmit={handleCategorySubmit}>
         <div className="flex gap-4 items-end ">
           <div className="grow ">
             <label className="text-gray-400 px-2">
@@ -119,29 +114,53 @@ export default function CategoriesPage() {
               onChange={(event) => setCategoryName(event.target.value)}
             />
           </div>
-          <div className="pb-2">
-            <button type="submit">
+          <div className="pb-2 flex gap-2">
+            <button className="submit bg-primary text-gray-600" type="submit">
               {editedCategory ? "Bearbeiten" : "Erstellen"}
+            </button>
+            <button
+              className="beenden"
+              type="button"
+              onClick={() => {
+                setEditedCategory(null);
+                setCategoryName("");
+              }}>
+              Aufheben
             </button>
           </div>
         </div>
       </form>
       <div>
-        <h2 className="mt-8 px-3 text-sm text-gray-400">
-          Kategorie bearbeiten:
+        <h2 className="mt-16 px-3 text-sm text-gray-400">
+          Vorhandene Kategorien:
         </h2>
         {categories?.length > 0 &&
           categories.map((c) => (
-            <button
-              key={c.id}
-              onClick={() => {
-                setEditedCategory(c);
-                setCategoryName(c.name);
-              }}
-              className="mb-2 hover:text-white text-gray-400  flex justify-start items-center gap-2"
+            <div
+              key={c._id}
+              className="mb-2 bg-submit rounded-xl p-2 px-4 flex justify-start items-center gap-2 "
             >
-              <span className="text-gray-100">{c.name}</span>
-            </button>
+              <div className="text-gray-300 grow">{c.name}</div>
+              <div className="flex gap-2">
+                <button
+                  className="avatar__btn flex text-sm mx-auto justify-center gap-3 mt-2 items-center hover:shadow-md hover:shadow-white"
+                  type="button"
+                  onClick={() => {
+                    setEditedCategory(c);
+                    setCategoryName(c.name);
+                  }}
+                >
+                  Bearbeiten
+                </button>
+                <button
+                  className="avatar__btn flex text-sm mx-auto justify-center gap-3 mt-2 items-center hover:shadow-md hover:shadow-white"
+                  type="button"
+                  onClick={() => handleDeleteClick(c._id)}
+                >
+                  Löschen
+                </button>
+              </div>
+            </div>
           ))}
       </div>
     </section>

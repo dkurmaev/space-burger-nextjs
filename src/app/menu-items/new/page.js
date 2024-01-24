@@ -65,11 +65,11 @@ export default function NewMenuItemPage() {
     );
   }
   return (
-    <section className="mt-8 max-w-md mx-auto">
+    <section className="mt-8 max-w-xl mx-auto">
       <UserTabs isAdmin={true} />
-      <div className="mt-8">
+      <div className="mt-16">
         <Link
-          className="button flex justify-center items-center gap-2"
+          className="flex justify-center items-center gap-2"
           href={"/menu-items"}
         >
           <Left />

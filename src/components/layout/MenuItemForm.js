@@ -1,5 +1,5 @@
 import { useState } from "react";
-import CurrencyInput from "react-currency-input";
+import { NumericFormat }from "react-number-format";
 import EditableImage from "@/components/layout/EditableImage";
 import MenuItemPriseProps from "@/components/layout/MenuItemPriseProps";
 
@@ -8,10 +8,9 @@ export default function MenuItemForm({ onSubmit, menuItem }) {
   const [name, setName] = useState(menuItem?.name || "");
   const [description, setDescription] = useState(menuItem?.description || "");
   const [basePrice, setBasePrice] = useState(menuItem?.basePrice || "");
-  const [extras, setExtras] = useState([]);
-  const [beilagen, setBeilagen] = useState([]);
-  const [drinks, setDrinks] = useState([]);
-  
+  const [extras, setExtras] = useState(menuItem?.extras || []);
+  const [beilagen, setBeilagen] = useState(menuItem?.beilagen || []);
+  const [drinks, setDrinks] = useState(menuItem?.drinks || []);
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -44,13 +43,15 @@ export default function MenuItemForm({ onSubmit, menuItem }) {
             onChange={(event) => setDescription(event.target.value)}
           />
           <label className="text-gray-400 px-2">Regular Preis €</label>
-          <CurrencyInput
+          <NumericFormat
             className="text-white"
-            prefix="€"
             value={basePrice}
-            onChangeEvent={(event, maskedValue, floatValue) =>
-              setBasePrice(floatValue)
-            }
+            onValueChange={(values) => {
+              const { floatValue } = values;
+              setBasePrice(floatValue);
+            }}
+            thousandSeparator={true}
+            prefix={"€"}
           />
           <MenuItemPriseProps
             name={"Extras"}
@@ -70,7 +71,9 @@ export default function MenuItemForm({ onSubmit, menuItem }) {
             props={drinks}
             setProps={setDrinks}
           />
-          <button type="submit">Speichern</button>
+          <button 
+          className="save bg-primary mt-2 flex justify-center items-center"
+          type="save">Speichern</button>
         </div>
       </div>
     </form>

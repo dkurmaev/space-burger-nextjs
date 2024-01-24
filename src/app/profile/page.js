@@ -4,6 +4,7 @@ import { useSession } from "next-auth/react";
 import { redirect } from "next/navigation";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
+
 import UserTabs from "@/components/layout/UserTabs";
 import EditableImage from "@/components/layout/EditableImage";
 
@@ -19,6 +20,7 @@ export default function ProfilePage() {
   const [country, setCountry] = useState("");
   const [isAdmin, setIsAdmin] = useState(false);
   const [profileFetched, setProfileFetched] = useState(false);
+  const [termsAccepted, setTermsAccepted] = useState(false);
   const { status } = session;
 
   useEffect(() => {
@@ -82,9 +84,9 @@ export default function ProfilePage() {
   }
 
   return (
-    <section className="mt-8">
+    <section className="mt-16">
       <UserTabs isAdmin={isAdmin} />
-      <div className="max-w-md mx-auto mt-8">
+      <div className="max-w-xl mx-auto mt-8">
         <div className="flex gap-4 ">
           <div>
             <div className=" p-2 rounded-lg relative max-w-[120px]">
@@ -171,8 +173,30 @@ export default function ProfilePage() {
                 onChange={(event) => setPhone(event.target.value)}
               />
             </div>
+            <p className=" ml-2 mt-2 text-xs text-gray-600">
+              <input
+                className="text-submit"
+                type="checkbox"
+                required
+                onChange={(event) => setTermsAccepted(event.target.checked)}
+              />
+              &nbsp;Indem Sie auf&nbsp;
+              <span className="text-primary" href="/#">
+                Speichern
+              </span>
+              &nbsp; klicken, stimmen Sie unseren&nbsp;
+              <a href="#" className="underline text-rose-800">
+                Datenschutzerklaerung zu
+              </a>
+            </p>
 
-            <button type="submit">Speichern</button>
+            <button
+              className="bg-primary flex justify-center mx-auto text-gray-900"
+              type="save"
+              disabled={!termsAccepted}
+            >
+              Speichern
+            </button>
           </form>
         </div>
       </div>

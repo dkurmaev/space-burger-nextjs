@@ -44,11 +44,11 @@ export default function MenuItems() {
   }
 
   return (
-    <section className="mt-8 max-w-md mx-auto">
+    <section className="mt-8 max-w-xl mx-auto">
       <UserTabs isAdmin={true} />
-      <div className="mt-8">
+      <div className="mt-16">
         <Link
-          className="button hover:text-white text-gray-400 flex justify-center items-center gap-2"
+          className="hover:text-white text-gray-400 flex justify-center items-center gap-2"
           href={"/menu-items/new"}
         >
           Neuen Artikel erstellen
@@ -64,7 +64,7 @@ export default function MenuItems() {
             menuItems.map((item) => (
               <Link
                 href={"/menu-items/edit/" + item._id}
-                className="rounded-lg text-gray-400 p-4 transition-all hover:shadow-xl hover:shadow-white/20 card"
+                className="rounded-lg text-gray-400  grid content-between p-2 transition-all hover:shadow-xl hover:shadow-white/20 card"
                 key={item.id}
               >
                 <div className="relative w-full">
@@ -72,11 +72,12 @@ export default function MenuItems() {
                     className="rounded-md"
                     src={item.image}
                     alt={item.name}
-                    width={200}
-                    height={200}
+                    width={250}
+                    height={250}
+                    style={{ objectFit: "cover" }}
                   />
                 </div>
-                <div className="text-center">{item.name}</div>
+                <div className="text-center flex justify-center items-center mt-3">{item.name}</div>
               </Link>
             ))}
         </div>

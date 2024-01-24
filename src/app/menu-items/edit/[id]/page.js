@@ -47,6 +47,28 @@ export default function EditMenuItemPage() {
     setRedirectToItems(true);
   }
 
+  async function handleDeleteClick() {
+    const promise = new Promise(async (resolve, reject) => {
+    const response = await fetch("/api/menu-items?_id=" + id, {
+        method: "DELETE",
+      });
+      if(response.ok) {
+        resolve();
+      }else{
+        reject();
+      }
+    }); 
+
+
+
+    await toast.promise(promise, {
+      loading: "Löschen...",
+      success: "Artikel gelöscht!",
+      error: "Löschen fehlgeschlagen",
+    });
+    setRedirectToItems(true); 
+  } 
+
   if (redirectToItems) {
     return redirect("/menu-items");
   }
@@ -75,7 +97,7 @@ export default function EditMenuItemPage() {
     );
   }
   return (
-    <section className="mt-8 max-w-md mx-auto">
+    <section className="mt-16 max-w-xl mx-auto">
       <UserTabs isAdmin={true} />
       <div className="mt-8">
         <Link
@@ -89,6 +111,17 @@ export default function EditMenuItemPage() {
         </Link>
       </div>
       <MenuItemForm menuItem={menuItem} onSubmit={handleFormSubmit} />
+      <div className="max-w-sm ml-auto">        
+          <button
+          
+            className="save bg-blue mt-2 flex justify-center items-center"
+            type="save"
+            onClick={handleDeleteClick}
+          >
+            Löschen
+          </button>
+        
+      </div>
     </section>
   );
 }
