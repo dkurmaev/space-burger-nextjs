@@ -78,7 +78,7 @@ video {
     transition: background 0.25s;
 
 }
-
+select,
 input[type="email"],
 input[type="password"],
 input[type="tel"],
@@ -119,13 +119,14 @@ button, .button {
 
 button[type="submit"],
 .submit {
-    @apply text-gray-400 border-primary hover:bg-secondary mt-4;
-    box-shadow: 0 1px 5px 0 #764F22;
+    @apply text-gray-800 border-primary hover:bg-secondary mt-4;
+        box-shadow: 0 1px 10px 0 #d3b28d;
 }
 
 button[type="submit"]:disabled,
 .submit:disabled {
-    @apply cursor-not-allowed bg-gray-400 ;
+    @apply cursor-not-allowed  bg-gray-400 ;
+    box-shadow: 0 1px 10px 0 #b8a999;
     
 }
 button[type="register"]:disabled,
@@ -141,18 +142,41 @@ button[type="avatar"],
 
 button[type="beenden"],
 .beenden {
-    @apply text-gray-600 border-blue hover:bg-blue mt-4 ;    
+    @apply text-gray-600 border-my_blue hover:bg-my_blue mt-4 ;    
     box-shadow: 0 1px 5px 0 #764F22;
 }
 
 button[type="save"],
 .save {
-    @apply text-gray-800 border-primary hover:bg-secondary mt-4;
+    @apply text-gray-800  border-primary hover:bg-secondary mt-4;
     box-shadow: 0 1px 10px 0 #d3b28d;
 }
+button[type="save"]:disabled
+.save:disabled {
+    @apply cursor-not-allowed bg-gray-400;    
+    box-shadow: 0 1px 10px 0 #b8a999;
+}
+
+button[type="remove"],
+.remove {
+    @apply text-gray-200  hover:bg-my_rot hover:text-gray-800 ;
+    box-shadow: 0 1px 10px 0 #f80404;
+}
+
+
+
+button[type="cancel"],
+.cancel {
+    @apply text-gray-200  hover:bg-my_blue ;
+    box-shadow: 0 1px 10px 0 #d3b28d;
+}
+
+
 .avatar__btn {
     box-shadow: 0 2px 10px 0 #be8f58;
 }
+
+
 
 
 

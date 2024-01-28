@@ -4,10 +4,9 @@ import Link from "next/link";
 import Image from "next/image";
 import Logo from "@/components/icons/Logo";
 
-
 export default function Header() {
   const session = useSession();
-  const status  = session?.status;
+  const status = session?.status;
   const userData = session.data?.user;
   let userName = userData?.name || userData?.email;
   if (userName && typeof userName === "string" && userName.includes(" ")) {
@@ -39,8 +38,8 @@ export default function Header() {
               className="text-white whitespace-nowrap glow flex justify-between items-center"
               href={"/profile"}
             >
-              {`Hi! `}              
-              {userName}              
+              {`Hi! `}
+              {userName}
             </Link>
             <button
               onClick={() => signOut()}
@@ -54,7 +53,7 @@ export default function Header() {
           <>
             <Link
               href={"/login"}
-              className="bg-blue rounded-full text-white px-8 py-2 "
+              className="bg-my_blue rounded-full text-white px-8 py-2 "
             >
               Anmelden
             </Link>

@@ -14,7 +14,7 @@ export default function NewMenuItemPage() {
   const [redirectToItems, setRedirectToItems] = useState(false);
   const { loading: profileLoading, data: profileData } = UseProfile();
 
-  async function handleFormSubmit(event, data) {
+  async function handleFormSubmit(event,  data) {    
     event.preventDefault();
     const savingPromise = new Promise(async (resolve, reject) => {
       const response = await fetch("/api/menu-items", {
@@ -65,7 +65,7 @@ export default function NewMenuItemPage() {
     );
   }
   return (
-    <section className="mt-8 max-w-xl mx-auto">
+    <section className="mt-16 max-w-2xl mx-auto">
       <UserTabs isAdmin={true} />
       <div className="mt-16">
         <Link

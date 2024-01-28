@@ -44,7 +44,7 @@ export default function MenuItems() {
   }
 
   return (
-    <section className="mt-8 max-w-xl mx-auto">
+    <section className="mt-16 max-w-2xl mx-auto">
       <UserTabs isAdmin={true} />
       <div className="mt-16">
         <Link

@@ -5,12 +5,14 @@ import toast from "react-hot-toast";
 
 import UserTabs from "@/components/layout/UserTabs";
 import { UseProfile } from "@/components/useProfile";
+import DeleteButton from "@/components/DeleteButton";
 
 export default function CategoriesPage() {
   const [categoryName, setCategoryName] = useState("");
   const [categories, setCategories] = useState([]);
   const { loading: profileLoading, data: profileData } = UseProfile();
   const [editedCategory, setEditedCategory] = useState(null);
+  const [showConfirm, setShowConfirm] = useState(false);
 
   useEffect(() => {
     fetchCategories();
@@ -69,6 +71,9 @@ export default function CategoriesPage() {
     fetchCategories();
   }
 
+  const handleShowConfirm = () => setShowConfirm(true);
+  const handleHideConfirm = () => setShowConfirm(false);
+
   if (profileLoading) {
     return (
       <>
@@ -92,8 +97,9 @@ export default function CategoriesPage() {
       </div>
     );
   }
+
   return (
-    <section className="mt-8 max-w-xl mx-auto">
+    <section className="mt-16 max-w-2xl mx-auto">
       <UserTabs isAdmin={true} />
       <form className="mt-16" onSubmit={handleCategorySubmit}>
         <div className="flex gap-4 items-end ">
@@ -104,7 +110,7 @@ export default function CategoriesPage() {
                 : "Kategorie erstellen:"}
               {editedCategory && (
                 <>
-                  : <b className="text-blue"> {editedCategory.name}</b>
+                  : <b className="text-my_blue"> {editedCategory.name}</b>
                 </>
               )}
             </label>
@@ -124,27 +130,28 @@ export default function CategoriesPage() {
               onClick={() => {
                 setEditedCategory(null);
                 setCategoryName("");
-              }}>
+              }}
+            >
               Aufheben
             </button>
           </div>
         </div>
       </form>
       <div>
-        <h2 className="mt-16 px-3 text-sm text-gray-400">
+        <h2 className="mt-12 px-3 text-sm text-gray-400">
           Vorhandene Kategorien:
         </h2>
         {categories?.length > 0 &&
           categories.map((c) => (
             <div
               key={c._id}
-              className="mb-2 bg-submit rounded-xl p-2 px-4 flex justify-start items-center gap-2 "
+              className="bg-submit rounded-xl p-2 px-4 flex gap-4 mb-1 items-center "
             >
-              <div className="text-gray-300 grow">{c.name}</div>
-              <div className="flex gap-2">
+              <div className="text-gray-300 grow ">{c.name}</div>
+              <div className="flex items-center gap-3 my-auto">
                 <button
-                  className="avatar__btn flex text-sm mx-auto justify-center gap-3 mt-2 items-center hover:shadow-md hover:shadow-white"
-                  type="button"
+                  className="avatar__btn flex text-sm mx-auto justify-center gap-3 items-center hover:shadow-md hover:shadow-white"
+                  type="cancel"
                   onClick={() => {
                     setEditedCategory(c);
                     setCategoryName(c.name);
@@ -152,17 +159,20 @@ export default function CategoriesPage() {
                 >
                   Bearbeiten
                 </button>
-                <button
-                  className="avatar__btn flex text-sm mx-auto justify-center gap-3 mt-2 items-center hover:shadow-md hover:shadow-white"
-                  type="button"
-                  onClick={() => handleDeleteClick(c._id)}
-                >
-                  Löschen
-                </button>
+                <DeleteButton
+                  label="Löschen"
+                  onDelete={() => handleDeleteClick(c._id)}
+                />
               </div>
             </div>
           ))}
       </div>
+      {showConfirm && (
+        <DeleteButton
+          label="Löschen"
+          onDelete={() => handleDeleteClick(editedCategory._id)}
+        />
+      )}
     </section>
   );
 }

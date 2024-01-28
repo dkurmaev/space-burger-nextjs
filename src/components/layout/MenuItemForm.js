@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { NumericFormat }from "react-number-format";
 import EditableImage from "@/components/layout/EditableImage";
 import MenuItemPriseProps from "@/components/layout/MenuItemPriseProps";
@@ -6,20 +6,41 @@ import MenuItemPriseProps from "@/components/layout/MenuItemPriseProps";
 export default function MenuItemForm({ onSubmit, menuItem }) {
   const [image, setImage] = useState(menuItem?.image || "");
   const [name, setName] = useState(menuItem?.name || "");
-  const [description, setDescription] = useState(menuItem?.description || "");
+  const [description, setDescription] = useState(menuItem?.description || "");  
   const [basePrice, setBasePrice] = useState(menuItem?.basePrice || "");
   const [extras, setExtras] = useState(menuItem?.extras || []);
   const [beilagen, setBeilagen] = useState(menuItem?.beilagen || []);
   const [drinks, setDrinks] = useState(menuItem?.drinks || []);
+  const [categories, setCategories] = useState([]);
+  const [category, setCategory] = useState(menuItem?.category || "");
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
+  useEffect(() => {
+    fetch("/api/categories").then((response) => {
+      response.json().then((categories) => {
+        setCategories(categories);
+      });
+    });
 
-    onSubmit({ image, name, description, basePrice, extras, beilagen, drinks });
-  };
+  }, [])
+
+  
 
   return (
-    <form onSubmit={handleSubmit} className="mt-8">
+    <form
+      onSubmit={(event) =>
+        onSubmit(event, {
+          image,
+          name,
+          description,
+          basePrice,
+          category,
+          extras,
+          beilagen,
+          drinks,
+        })
+      }
+      className="mt-8 mx-w-2xl mx-auto"
+    >
       <div
         className="grid gap-6 items-start "
         style={{ gridTemplateColumns: ".3fr .7fr" }}
@@ -42,6 +63,18 @@ export default function MenuItemForm({ onSubmit, menuItem }) {
             value={description}
             onChange={(event) => setDescription(event.target.value)}
           />
+          <label className="text-gray-400 px-2">Kategorie</label>
+          <select
+            value={category}
+            onChange={(event) => setCategory(event.target.value)}
+          >
+            {categories?.length > 0 &&
+              categories.map((c) => (
+                <option key={c._id} value={c._id}>
+                  {c.name}
+                </option>
+              ))}
+          </select>
           <label className="text-gray-400 px-2">Regular Preis €</label>
           <NumericFormat
             className="text-white"
@@ -71,9 +104,12 @@ export default function MenuItemForm({ onSubmit, menuItem }) {
             props={drinks}
             setProps={setDrinks}
           />
-          <button 
-          className="save bg-primary mt-2 flex justify-center items-center"
-          type="save">Speichern</button>
+          <button
+            className="save bg-primary mt-2 flex justify-center items-center"
+            type="save"
+          >
+            Speichern
+          </button>
         </div>
       </div>
     </form>

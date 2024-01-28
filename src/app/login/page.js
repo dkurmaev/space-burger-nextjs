@@ -54,7 +54,7 @@ export default function LoginPage() {
             <button
               type="button"
               onClick={() => setShowPassword(!showPassword)}
-              className=" text-blue "
+              className=" text-my_blue "
             >
               {showPassword ? <FiEyeOff /> : <FiEye />}
             </button>

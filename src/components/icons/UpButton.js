@@ -5,7 +5,7 @@ export default function UpButton() {
       <Image
           src={"/img/up scroll.svg"}
           fill={true}
-          className="object-contain hover:shadow-xl rounded-full hover:shadow-blue"
+          className="object-contain hover:shadow-xl rounded-full hover:shadow-my_blue"
           alt={"up_scroll"}
       />
 

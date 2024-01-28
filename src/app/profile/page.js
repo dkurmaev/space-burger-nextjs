@@ -41,6 +41,13 @@ export default function ProfilePage() {
     }
   }, [status, session]);
 
+   useEffect(() => {    
+     const saveButton = document.getElementById("saveButton");
+     if (saveButton) {
+       saveButton.disabled = !termsAccepted;
+     }
+   }, [termsAccepted]);
+
   async function handleProfileInfoUpdate(event) {
     event.preventDefault();
     const savingPromise = new Promise(async (resolve, reject) => {
@@ -104,7 +111,7 @@ export default function ProfilePage() {
             />
             <label>Email</label>
             <input
-              className="text-blue/30 avatar__btn"
+              className="text-my_blue/30 avatar__btn"
               type="email"
               disabled={true}
               value={session.data.user.email}
@@ -118,7 +125,7 @@ export default function ProfilePage() {
               value={street}
               onChange={(event) => setStreet(event.target.value)}
             />
-            <div className="flex gap-2 mx-auto">
+            <div className="flex gap-4 mx-auto">
               <div>
                 <label>Postleitzahl</label>
                 <input
@@ -154,7 +161,7 @@ export default function ProfilePage() {
               <select
                 value={countryCode}
                 onChange={(event) => setCountryCode(event.target.value)}
-                className="avatar__btn rounded-xl bg-blue mx-auto px-2 h-12  gap-2 text-gray-600"
+                className="avatar__btn rounded-xl bg-my_blue mx-auto px-2 h-12  gap-2 text-gray-600"
                 defaultValue="+1"
               >
                 <option value="+49">+49</option>
@@ -189,11 +196,12 @@ export default function ProfilePage() {
                 Datenschutzerklaerung zu
               </a>
             </p>
-
             <button
-              className="bg-primary flex justify-center mx-auto text-gray-900"
-              type="save"
+              id="saveButton"
+              className=" save bg-primary flex justify-center mx-auto text-gray-900 "
+              type="submit"
               disabled={!termsAccepted}
+              onClick={handleProfileInfoUpdate}
             >
               Speichern
             </button>

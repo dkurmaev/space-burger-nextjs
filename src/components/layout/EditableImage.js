@@ -38,14 +38,13 @@ export default function EditableImage({ link, setLink }) {
         />
       )}
       {!link && (
-        <div className="bg-blue/30 text-center p-4 mb-1 rounded-lg w-full h-full mt-6">
-            Kein Bild
-
+        <div className="bg-my_blue/30 text-center p-4 mb-1 rounded-lg w-full h-full mt-6">
+          Kein Bild
         </div>
       )}
       <label>
         <input type="file" className="hidden" onChange={handleFileChange} />
-        <span className="block rounded-lg p-1 text-center cursor-pointer hover:bg-primary avatar__btn">
+        <span className="block rounded-lg p-1 text-center cursor-pointer hover:bg-my_blue avatar__btn">
           Edit
         </span>
       </label>

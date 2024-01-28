@@ -1,4 +1,4 @@
-export default function Right({ className = "w-6 h-6 text-blue transform transition-transform hover:rotate-180"  }) {
+export default function Right({ className = "w-6 h-6 text-my_blue transform transition-transform hover:rotate-180"  }) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"

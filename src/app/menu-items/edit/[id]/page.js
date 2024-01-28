@@ -8,6 +8,7 @@ import { UseProfile } from "@/components/useProfile";
 import UserTabs from "@/components/layout/UserTabs";
 import Left from "@/components/icons/Left";
 import MenuItemForm from "@/components/layout/MenuItemForm";
+import DeleteButton from "@/components/DeleteButton";
 
 export default function EditMenuItemPage() {
   const { id } = useParams();
@@ -16,26 +17,42 @@ export default function EditMenuItemPage() {
   const { loading: profileLoading, data: profileData } = UseProfile();
 
   useEffect(() => {
-    fetch("/api/menu-items/").then((response) => {
-      response.json().then((items) => {
+    fetch("/api/menu-items/")
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+        return response.json();
+      })
+      .then((items) => {
         const item = items.find((item) => item._id === id);
         setMenuItem(item);
+      })
+      .catch((error) => {
+        console.error("Error fetching menu items:", error);
       });
-    });
-  }, []);
+  }, [id]);
 
-  async function handleFormSubmit(data) {
+
+  async function handleFormSubmit(event, data) {
+     event.preventDefault();
     data = { ...data, _id: id };
     const savingPromise = new Promise(async (resolve, reject) => {
-      const response = await fetch("/api/menu-items", {
-        method: "PUT",
-        body: JSON.stringify(data),
-        headers: { "Content-Type": "application/json" },
-      });
-      if (response.ok) {
+      try {
+        const response = await fetch("/api/menu-items", {
+          method: "PUT",
+          body: JSON.stringify(data),
+          headers: { "Content-Type": "application/json" },
+        });
+
+        if (!response.ok) {
+          throw new Error(`Request failed with status ${response.status}`);
+        }
+
         resolve();
-      } else {
-        reject();
+      } catch (error) {
+        console.error("Error during API request:", error);
+        reject(error);
       }
     });
     await toast.promise(savingPromise, {
@@ -49,25 +66,23 @@ export default function EditMenuItemPage() {
 
   async function handleDeleteClick() {
     const promise = new Promise(async (resolve, reject) => {
-    const response = await fetch("/api/menu-items?_id=" + id, {
+      const response = await fetch("/api/menu-items?_id=" + id, {
         method: "DELETE",
       });
-      if(response.ok) {
+      if (response.ok) {
         resolve();
-      }else{
+      } else {
         reject();
       }
-    }); 
-
-
+    });
 
     await toast.promise(promise, {
       loading: "Löschen...",
       success: "Artikel gelöscht!",
       error: "Löschen fehlgeschlagen",
     });
-    setRedirectToItems(true); 
-  } 
+    setRedirectToItems(true);
+  }
 
   if (redirectToItems) {
     return redirect("/menu-items");
@@ -97,7 +112,7 @@ export default function EditMenuItemPage() {
     );
   }
   return (
-    <section className="mt-16 max-w-xl mx-auto">
+    <section className="mt-16 max-w-2xl mx-auto">
       <UserTabs isAdmin={true} />
       <div className="mt-8">
         <Link
@@ -111,16 +126,11 @@ export default function EditMenuItemPage() {
         </Link>
       </div>
       <MenuItemForm menuItem={menuItem} onSubmit={handleFormSubmit} />
-      <div className="max-w-sm ml-auto">        
-          <button
-          
-            className="save bg-blue mt-2 flex justify-center items-center"
-            type="save"
-            onClick={handleDeleteClick}
-          >
-            Löschen
-          </button>
-        
+      <div className="max-w-sm ml-auto mt-4">
+        <DeleteButton
+          label="Artikel löschen"          
+          onDelete ={handleDeleteClick}
+        />
       </div>
     </section>
   );

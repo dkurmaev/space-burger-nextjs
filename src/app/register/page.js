@@ -107,7 +107,7 @@ export default function RegisterPage() {
             <button
               type="button"
               onClick={() => setShowPassword(!showPassword)}
-              className=" text-blue pr-3 " // Position the button to the right of the input
+              className=" text-my_blue pr-3 "
             >
               {showPassword ? <FiEyeOff /> : <FiEye />}
             </button>

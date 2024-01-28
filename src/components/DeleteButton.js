@@ -1,25 +1,35 @@
-import {useState} from "react";
+import { useState } from "react";
 
-export default function DeleteButton({label,onDelete}) {
+export default function DeleteButton({ label, onDelete }) {
   const [showConfirm, setShowConfirm] = useState(false);
 
   if (showConfirm) {
     return (
       <div className="fixed bg-black/80 inset-0 flex items-center h-full justify-center">
-        <div className="bg-white p-4 rounded-lg">
-          <div>Are you sure you want to delete?</div>
-          <div className="flex gap-2 mt-1">
-            <button type="button" onClick={() => setShowConfirm(false)}>
-              Cancel
+        <div className="bg-bg rounded-lg p-4 relative">
+          <span
+            className="absolute   top-0 right-2 text-white cursor-pointer"
+            onClick={() => setShowConfirm(false)}
+          >
+            &times;
+          </span>
+          <div className="mt-3">Sind Sie sicher, dass Sie löschen möchten?</div>
+          <div className="flex gap-4">
+            <button
+              type="button"
+              className="cancel justify-center items-center"
+              onClick={() => setShowConfirm(false)}
+            >
+              Aufheben
             </button>
             <button
-              onClick={() => {
+            onClick={() => {
                 onDelete();
                 setShowConfirm(false);
               }}
               type="button"
-              className="primary">
-              Yes,&nbsp;delete!
+              className="remove justify-center items-center hover:bg-red-600 text-gray-200">
+              Ja,&nbsp;löschen!
             </button>
           </div>
         </div>
@@ -28,7 +38,11 @@ export default function DeleteButton({label,onDelete}) {
   }
 
   return (
-    <button type="button" onClick={() => setShowConfirm(true)}>
+    <button
+      className="flex justify-center my-auto text-sm items-center"
+      type="remove"
+      onClick={() => setShowConfirm(true)}
+    >
       {label}
     </button>
   );
