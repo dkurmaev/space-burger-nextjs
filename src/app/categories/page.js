@@ -101,7 +101,7 @@ export default function CategoriesPage() {
   return (
     <section className="mt-16 max-w-2xl mx-auto">
       <UserTabs isAdmin={true} />
-      <form className="mt-16" onSubmit={handleCategorySubmit}>
+      <form className="mt-16 ml-14" onSubmit={handleCategorySubmit}>
         <div className="flex gap-4 items-end ">
           <div className="grow ">
             <label className="text-gray-400 px-2">
@@ -138,14 +138,14 @@ export default function CategoriesPage() {
         </div>
       </form>
       <div>
-        <h2 className="mt-12 px-3 text-sm text-gray-400">
+        <h2 className="mt-12 ml-14 px-3 text-sm text-gray-400">
           Vorhandene Kategorien:
         </h2>
         {categories?.length > 0 &&
           categories.map((c) => (
             <div
               key={c._id}
-              className="bg-submit rounded-xl p-2 px-4 flex gap-4 mb-1 items-center "
+              className="bg-submit rounded-xl p-2 px-4 flex gap-4 mb-1 ml-14 items-center "
             >
               <div className="text-gray-300 grow ">{c.name}</div>
               <div className="flex items-center gap-3 my-auto">

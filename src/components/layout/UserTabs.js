@@ -4,7 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 export default function UserTabs({ isAdmin }) {
   const path = usePathname();
-  console.log(path);
+  
     return (
       <div className="flex max-w-xl items-center mx-auto justify-between gap-6 tabs">
         <Link className={path === "/profile" ? "active" : ""} href={"/profile"}>
@@ -24,11 +24,14 @@ export default function UserTabs({ isAdmin }) {
             >
               Menüartikel
             </Link>
-            <Link href={"/users"} className={path === "/users" ? "active" : ""}>
+            <Link href={"/users"} className={path.includes( "/users" ) ? "active" : ""}>
               Users
             </Link>
-            <Link href={"/orders"} className={path === "/orders" ? "active" : ""}>
-              Orders
+            <Link
+              href={"/orders"}
+              className={path === "/orders" ? "active" : ""}
+            >
+              Bestellungen
             </Link>
           </>
         )}

@@ -56,10 +56,10 @@ export default function MenuItems() {
         </Link>
       </div>
       <div>
-        <h2 className="mt-8 px-3 text-sm text-gray-400 ">
+        <h2 className="mt-8 px-3 text-sm text-gray-400 ml-14 ">
           Artikel bearbeiten:
         </h2>
-        <div className="grid grid-cols-3 gap-4 mt-2">
+        <div className="grid grid-cols-3 gap-4 mt-2 ml-14">
           {menuItems?.length > 0 &&
             menuItems.map((item) => (
               <Link
@@ -77,7 +77,9 @@ export default function MenuItems() {
                     style={{ objectFit: "cover" }}
                   />
                 </div>
-                <div className="text-center flex justify-center items-center mt-3">{item.name}</div>
+                <div className="text-center flex justify-center items-center mt-3">
+                  {item.name}
+                </div>
               </Link>
             ))}
         </div>
