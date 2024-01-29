@@ -14,8 +14,7 @@ export default function LoginPage() {
   async function handleFormSubmit(event) {
     event.preventDefault();
     setLoginInProgress(true);
-    setError(false);
-    setUserLogged(false);
+   
 
     await signIn("credentials", { email, password, callbackUrl: "/" });
 
@@ -47,12 +46,14 @@ export default function LoginPage() {
             placeholder="password"
             autoComplete="current-password"
             value={password}
+            disabled={loginInProgress}
             onChange={(event) => setPassword(event.target.value)}
             className="pr-10"
           />
           <div className="absolute inset-y-0 right-0 pr-3 flex justify-end items-center">
             <button
               type="button"
+
               onClick={() => setShowPassword(!showPassword)}
               className=" text-my_blue "
             >
@@ -62,8 +63,7 @@ export default function LoginPage() {
         </div>
         <button
           className="hover:shadow-md hover:shadow-white items-center justify-center"
-          disabled={loginInProgress}
-          onClick={() => signIn("credentials", { callbackUrl: "/" })}
+          disabled={loginInProgress}          
           type="submit"
         >
           Einloggen

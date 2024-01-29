@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 
 import UserTabs from "@/components/layout/UserTabs";
-import { UseProfile } from "@/components/useProfile";
+import { UseProfile } from "@/components/UseProfile";
 import DeleteButton from "@/components/DeleteButton";
 
 export default function CategoriesPage() {

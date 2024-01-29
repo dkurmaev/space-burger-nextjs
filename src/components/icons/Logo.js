@@ -3,8 +3,8 @@ export default function Logo() {
   return (
     <Image
       src={"/img/Logo_full.png"}
-      width={320}
-      height={320}
+      width={260}
+      height={260}
       style={{ objectFit: "contain" }}
       alt={"logo"}
     />

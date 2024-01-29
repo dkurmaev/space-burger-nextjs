@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 
 import EditableImage from "@/components/layout/EditableImage";
+import { UseProfile } from "@/components/UseProfile";
 
 export default function UserForm({user, onSave}) {
     const [userName, setUserName] = useState(user?.name || "");
@@ -14,6 +15,8 @@ export default function UserForm({user, onSave}) {
     const [country, setCountry] = useState(user?.country || "");
     const [countryCode, setCountryCode] = useState("+49");
     const [termsAccepted, setTermsAccepted] = useState(false);
+    const [admin, setAdmin] = useState(user?.admin || false);
+    const {data:loggedInUserData} = UseProfile();
 
     useEffect(() => {
       const saveButton = document.getElementById("saveButton");
@@ -23,16 +26,34 @@ export default function UserForm({user, onSave}) {
     }, [termsAccepted]);
 
   return (
-    <div className="flex gap-4 ml-12 max-w-2xl ">
+    <div className="md:flex gap-4">
       <div>
         <div className=" p-2  rounded-lg relative max-w-[320px]">
           <EditableImage link={image} setLink={setImage} />
         </div>
+        {loggedInUserData.admin && (
+          <div>
+            <label
+              htmlFor="adminCb"
+              className="inline-flex items-center p-2 gap-2 "
+            >
+              <input
+                id="adminCb"
+                type="checkbox"
+                value={"1"}
+                checked={admin}
+                onClick={(event) => setAdmin(event.target.checked)}
+              />
+              <span>Admin</span>
+            </label>
+          </div>
+        )}
       </div>
       <form
         className="grow text-white "
         onSubmit={(event) =>
           onSave(event, {
+            admin,
             name: userName,
             image,
             phone,
@@ -67,7 +88,7 @@ export default function UserForm({user, onSave}) {
           value={street}
           onChange={(event) => setStreet(event.target.value)}
         />
-        <div className="flex gap-4 mx-auto justify-start ">
+        <div className="flex gap-4 ">
           <div>
             <label>Postleitzahl</label>
             <input
@@ -78,13 +99,12 @@ export default function UserForm({user, onSave}) {
               onChange={(event) => setPlz(event.target.value)}
             />
           </div>
-          <div>
+          <div className="grow">
             <label>Stadt</label>
             <input
               type="text"
               placeholder="Stadt"
               className="avatar__btn"
-              style={{ width: "auto" }}
               value={city}
               onChange={(event) => setCity(event.target.value)}
             />
@@ -99,7 +119,7 @@ export default function UserForm({user, onSave}) {
           onChange={(event) => setCountry(event.target.value)}
         />
         <label>Telefonnummer</label>
-        <div className="text-gray-600 flex justify-start gap-6 ">
+        <div className="text-gray-600 flex justify-start gap-4 ">
           <div>
             <select
               value={countryCode}
@@ -115,12 +135,11 @@ export default function UserForm({user, onSave}) {
               <option value="+39">+39</option>
             </select>
           </div>
-
-          <div>
+          <div className="grow">
             <input
               type="tel"
               placeholder="Phone Number"
-              className="avatar__btn text-gray-300  ml-8"
+              className="avatar__btn text-gray-300  "
               value={phone}
               onChange={(event) => setPhone(event.target.value)}
             />
@@ -140,7 +159,7 @@ export default function UserForm({user, onSave}) {
           &nbsp; klicken, stimmen Sie unseren&nbsp;
           <a href="#" className="underline text-rose-800">
             Datenschutzerklaerung
-          </a>{" "}
+          </a>
           zu
         </p>
         <button

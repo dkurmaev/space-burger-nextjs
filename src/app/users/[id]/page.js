@@ -6,6 +6,7 @@ import { useParams } from "next/navigation";
 import UserTabs from "@/components/layout/UserTabs";
 import { UseProfile } from "@/components/UseProfile";
 import UserForm from "@/components/layout/UserForm";
+import toast from "react-hot-toast";
 
 export default function EditUserPage() {
   const { loading: profileLoading, data: profileData } = UseProfile();
@@ -19,12 +20,24 @@ export default function EditUserPage() {
       });
     });
   }, [id]);
-  function handleSaveButtonClick(event, data) {
+ async function handleSaveButtonClick(event, data) {
     event.preventDefault();
-    fetch("/api/profile", {
-      method: "PUT",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ ...data, _id: id }),
+    const promise = new Promise(async (resolve, reject) => {
+    const response = await fetch("/api/profile", {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ ...data, _id: id }),
+      });
+      if (response.ok) 
+        resolve();
+      else
+        reject();     
+    });
+
+    await toast.promise(promise, {
+      loading: "Speichern...",
+      success: "Gespeichert!",
+      error: "Speichern fehlgeschlagen",
     });
   }
 
@@ -53,9 +66,9 @@ export default function EditUserPage() {
   }
 
   return (
-    <section className="mt-16 mx-auto max-w-xl">
+    <section className="mt-16 mx-auto max-w-2xl">
       <UserTabs isAdmin={true} />
-      <div className="mt-16">
+      <div className="mt-16 mx-auto">
         <UserForm user={user} onSave={handleSaveButtonClick} />
       </div>
     </section>

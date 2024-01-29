@@ -13,11 +13,12 @@ export default function Header() {
     userName = userName.split(" ")[0];
   }
   return (
-    <header className="flex items-center justify-between ">
-      <nav className="flex items-center gap-12 text-gray-400 font-semibold text-lg">
-        <Link href="/">
-          <Logo />
-        </Link>
+    <header className="flex items-center ">
+      <div className="flex">
+        <Logo />
+      </div>
+      <nav className="flex items-center mx-auto justify-center gap-8 grow text-gray-400 font-semibold text-lg">
+        {/*<Link href="/"></Link>*/}
         <Link href={"/"}>
           <span className=" hover:text-primary ">Home</span>
         </Link>
@@ -31,18 +32,18 @@ export default function Header() {
           <span className=" hover:text-primary ">Kontakt</span>
         </Link>
       </nav>
-      <nav className="flex items-center gap-4  text-gray-400 font-semi-bold text-lg w-fit">
+      <nav className="flex items-center gap-4 text-gray-400 font-semi-bold text-base w-fit">
         {status === "authenticated" && (
           <>
             <Link
-              className="text-white whitespace-nowrap glow flex justify-between items-center"
+              className="text-white whitespace-nowrap glow flex  items-center"
               href={"/profile"}
             >
               {`Hi! `}
               {userName}
             </Link>
             <button
-              onClick={() => signOut()}
+                onClick={() => signOut({ callbackUrl: '/' })}
               className="bg-primary rounded-full text-white px-8 py-2 header-menu__link menu-link"
             >
               Abmelden
