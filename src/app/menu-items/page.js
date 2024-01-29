@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import Image from "next/image";
-import { UseProfile } from "@/components/useProfile";
+import { UseProfile } from "@/components/UseProfile";
 import UserTabs from "@/components/layout/UserTabs";
 import Right from "@/components/icons/Right";
 

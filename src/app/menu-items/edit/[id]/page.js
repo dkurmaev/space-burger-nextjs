@@ -4,7 +4,7 @@ import toast from "react-hot-toast";
 import Link from "next/link";
 import { redirect, useParams } from "next/navigation";
 
-import { UseProfile } from "@/components/useProfile";
+import { UseProfile } from "@/components/UseProfile";
 import UserTabs from "@/components/layout/UserTabs";
 import Left from "@/components/icons/Left";
 import MenuItemForm from "@/components/layout/MenuItemForm";
