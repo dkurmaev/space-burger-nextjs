@@ -39,7 +39,7 @@ export const authOptions = {
                 if (passwordOk) {
                     user.name = user.name || "Default Name";
                     user.email = user.email || "default@example.com";
-                    user.isAdmin = isAdmin;
+                    user.isAdmin = await isAdmin;
 
                     return user;
                 }
